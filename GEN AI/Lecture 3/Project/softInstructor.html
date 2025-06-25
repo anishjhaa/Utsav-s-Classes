@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Coding Instructor AI - Pro Edition</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --dark-gradient: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            background: var(--dark-gradient);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .glass-morphism {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5), 0 0 40px rgba(102, 126, 234, 0.3), 0 0 60px rgba(102, 126, 234, 0.1);
+        }
+
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .gradient-text {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+
+        .hover-scale {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        .particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .typing-effect {
+            border-right: 2px solid #667eea;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            50% {
+                border-color: #667eea;
+            }
+
+            51%,
+            100% {
+                border-color: transparent;
+            }
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            stroke-dasharray: 251.2;
+            stroke-dashoffset: 251.2;
+            transition: stroke-dashoffset 1s ease-in-out;
+        }
+
+        .sidebar-enter {
+            animation: slideInLeft 0.5s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: var(--primary-gradient);
+            border-radius: 10px;
+        }
+
+        .loading-dots {
+            display: inline-flex;
+            gap: 4px;
+        }
+
+        .loading-dots div {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #667eea;
+            animation: loadingDots 1.4s infinite ease-in-out both;
+        }
+
+        .loading-dots div:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .loading-dots div:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes loadingDots {
+
+            0%,
+            80%,
+            100% {
+                transform: scale(0);
+            }
+
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        .code-block {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-gradient);
+        }
+
+        .interactive-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .interactive-button:hover::before {
+            left: 100%;
+        }
+
+        .stats-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .achievement-badge {
+            background: var(--success-gradient);
+            border-radius: 50px;
+            padding: 8px 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .feature-highlight {
+            position: relative;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .feature-highlight::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--primary-gradient);
+            border-radius: 15px;
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(10px);
+        }
+
+        .language-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .language-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-option:hover,
+        .language-option.active {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .chat-message {
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 15px;
+            animation: messageSlide 0.5s ease-out;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .user-message {
+            background: var(--primary-gradient);
+            margin-left: 50px;
+            border-bottom-right-radius: 5px;
+        }
+
+        .ai-message {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-right: 50px;
+            border-bottom-left-radius: 5px;
+        }
+
+        .voice-visualization {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            height: 60px;
+            gap: 3px;
+            margin: 20px 0;
+        }
+
+        .voice-bar {
+            width: 4px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+            animation: voiceWave 1s ease-in-out infinite;
+        }
+
+        .voice-bar:nth-child(1) {
+            height: 20px;
+            animation-delay: 0s;
+        }
+
+        .voice-bar:nth-child(2) {
+            height: 35px;
+            animation-delay: 0.1s;
+        }
+
+        .voice-bar:nth-child(3) {
+            height: 50px;
+            animation-delay: 0.2s;
+        }
+
+        .voice-bar:nth-child(4) {
+            height: 35px;
+            animation-delay: 0.3s;
+        }
+
+        .voice-bar:nth-child(5) {
+            height: 20px;
+            animation-delay: 0.4s;
+        }
+
+        @keyframes voiceWave {
+
+            0%,
+            100% {
+                transform: scaleY(0.5);
+            }
+
+            50% {
+                transform: scaleY(1);
+            }
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success-gradient);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            z-index: 1000;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateX(-50%) translateY(-100%);
+            }
+
+            to {
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .minimized-sidebar {
+            width: 80px;
+        }
+
+        .minimized-sidebar .sidebar-text {
+            display: none;
+        }
+
+        .progress-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary-gradient);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .ai-thinking {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #667eea;
+            margin: 20px 0;
+        }
+
+        .thinking-dots {
+            display: flex;
+            gap: 5px;
+        }
+
+        .thinking-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #667eea;
+            animation: thinkingPulse 1.5s infinite;
+        }
+
+        .thinking-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .thinking-dot:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .thinking-dot:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes thinkingPulse {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+    </style>
+</head>
+
+<body class="text-white">
+    <!-- Particle Background -->
+    <div id="particles-js" class="particle-container"></div>
+
+    <!-- Progress Indicator -->
+    <div class="progress-indicator">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-palette mr-2"></i>
+        <span>Theme</span>
+    </div>
+
+    <!-- Main Container -->
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div id="sidebar" class="w-80 glass-morphism sidebar-enter relative">
+            <div class="p-6">
+                <!-- Logo -->
+                <div class="flex items-center gap-4 mb-8">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                        <i class="fas fa-robot text-xl"></i>
+                    </div>
+                    <div class="sidebar-text">
+                        <h1 class="text-xl font-bold gradient-text">CodeMentor AI Pro</h1>
+                        <p class="text-sm text-gray-400">Advanced Learning Platform</p>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="space-y-2 mb-8">
+                    <div
+                        class="nav-item p-3 rounded-lg hover:bg-white hover:bg-opacity-10 cursor-pointer transition-all duration-300 flex items-center gap-3">
+                        <i class="fas fa-home text-blue-400"></i>
+                        <span class="sidebar-text">Dashboard</span>
+                    </div>
+                    <div
+                        class="nav-item p-3 rounded-lg hover:bg-white hover:bg-opacity-10 cursor-pointer transition-all duration-300 flex items-center gap-3">
+                        <i class="fas fa-code text-green-400"></i>
+                        <span class="sidebar-text">Code Lab</span>
+                    </div>
+                    <div
+                        class="nav-item p-3 rounded-lg hover:bg-white hover:bg-opacity-10 cursor-pointer transition-all duration-300 flex items-center gap-3">
+                        <i class="fas fa-graduation-cap text-yellow-400"></i>
+                        <span class="sidebar-text">Tutorials</span>
+                    </div>
+                    <div
+                        class="nav-item p-3 rounded-lg hover:bg-white hover:bg-opacity-10 cursor-pointer transition-all duration-300 flex items-center gap-3">
+                        <i class="fas fa-chart-line text-purple-400"></i>
+                        <span class="sidebar-text">Analytics</span>
+                    </div>
+                    <div
+                        class="nav-item p-3 rounded-lg hover:bg-white hover:bg-opacity-10 cursor-pointer transition-all duration-300 flex items-center gap-3">
+                        <i class="fas fa-trophy text-orange-400"></i>
+                        <span class="sidebar-text">Achievements</span>
+                    </div>
+                </nav>
+
+                <!-- Language Selector -->
+                <div class="sidebar-text">
+                    <h3 class="text-sm font-semibold mb-3 text-gray-300">Popular Languages</h3>
+                    <div class="space-y-2">
+                        <div
+                            class="flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all">
+                            <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                            <span class="text-sm">JavaScript</span>
+                        </div>
+                        <div
+                            class="flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all">
+                            <div class="w-3 h-3 bg-blue-400 rounded-full"></div>
+                            <span class="text-sm">Python</span>
+                        </div>
+                        <div
+                            class="flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all">
+                            <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+                            <span class="text-sm">Java</span>
+                        </div>
+                        <div
+                            class="flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all">
+                            <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                            <span class="text-sm">C++</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Profile -->
+                <div class="sidebar-text absolute bottom-6 left-6 right-6">
+                    <div class="glass-morphism rounded-lg p-4">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-sm">Pro User</p>
+                                <p class="text-xs text-gray-400">Level 42 • Expert</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Toggle -->
+                <button onclick="toggleSidebar()"
+                    class="absolute top-6 right-4 w-8 h-8 glass-morphism rounded-full flex items-center justify-center hover:scale-110 transition-all">
+                    <i class="fas fa-bars text-sm"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-8">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8 fade-in-up">
+                <div>
+                    <h2 class="text-4xl font-bold gradient-text mb-2">Advanced AI Coding Instructor</h2>
+                    <p class="text-gray-400">Master programming with AI-powered guidance and real-time feedback</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="glass-morphism rounded-full px-6 py-3 flex items-center gap-3">
+                        <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                        <span class="text-sm">AI Status: Online</span>
+                    </div>
+                    <button
+                        class="interactive-button bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3 rounded-full hover:scale-105 transition-all">
+                        <i class="fas fa-rocket mr-2"></i>
+                        Upgrade Pro
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Dashboard -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 fade-in-up">
+                <div class="stats-card hover-scale">
+                    <div class="flex items-center justify-between mb-4">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-code text-xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold">2,847</p>
+                            <p class="text-sm text-gray-400">Problems Solved</p>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full" style="width: 75%">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-card hover-scale">
+                    <div class="flex items-center justify-between mb-4">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-brain text-xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold">94%</p>
+                            <p class="text-sm text-gray-400">AI Accuracy</p>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-green-500 to-emerald-500 h-2 rounded-full" style="width: 94%">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-card hover-scale">
+                    <div class="flex items-center justify-between mb-4">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-r from-purple-500 to-violet-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-clock text-xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold">127h</p>
+                            <p class="text-sm text-gray-400">Learning Time</p>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-purple-500 to-violet-500 h-2 rounded-full" style="width: 60%">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-card hover-scale">
+                    <div class="flex items-center justify-between mb-4">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-trophy text-xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold">42</p>
+                            <p class="text-sm text-gray-400">Achievements</p>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-orange-500 to-red-500 h-2 rounded-full" style="width: 80%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Interface -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Chat Interface -->
+                <div class="lg:col-span-2 glass-morphism rounded-2xl p-6 fade-in-up">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold flex items-center gap-3">
+                            <i class="fas fa-comments text-blue-400"></i>
+                            AI Coding Assistant
+                        </h3>
+                        <div class="flex items-center gap-3">
+                            <button onclick="clearChat()"
+                                class="p-2 hover:bg-white hover:bg-opacity-10 rounded-lg transition-all">
+                                <i class="fas fa-trash text-red-400"></i>
+                            </button>
+                            <button onclick="exportChat()"
+                                class="p-2 hover:bg-white hover:bg-opacity-10 rounded-lg transition-all">
+                                <i class="fas fa-download text-green-400"></i>
+                            </button>
+                            <button onclick="toggleVoice()"
+                                class="p-2 hover:bg-white hover:bg-opacity-10 rounded-lg transition-all">
+                                <i class="fas fa-microphone text-purple-400"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Feature Highlights -->
+                    <div class="feature-highlight mb-6">
+                        <div class="flex items-center gap-3 mb-3">
+                            <i class="fas fa-sparkles text-yellow-400"></i>
+                            <h4 class="font-semibold">AI-Powered Features</h4>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-check text-green-400"></i>
+                                <span>Real-time Code Analysis</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-check text-green-400"></i>
+                                <span>Syntax Error Detection</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-check text-green-400"></i>
+                                <span>Performance Optimization</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-check text-green-400"></i>
+                                <span>Best Practice Suggestions</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Messages -->
+                    <div id="chatContainer" class="h-96 overflow-y-auto custom-scrollbar mb-6 space-y-4">
+                        <div class="ai-message">
+                            <div class="flex items-start gap-3">
+                                <div
+                                    class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-robot text-sm"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold mb-2">CodeMentor AI</p>
+                                    <div class="typing-effect" id="welcomeMessage">
+                                        Welcome to the most advanced coding instructor! I'm here to help you master
+                                        programming concepts, debug code, optimize performance, and learn best
+                                        practices.
+
+                                        What would you like to learn today?
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Voice Visualization (Hidden by default) -->
+                    <div id="voiceVisualization" class="voice-visualization hidden">
+                        <div class="voice-bar"></div>
+                        <div class="voice-bar"></div>
+                        <div class="voice-bar"></div>
+                        <div class="voice-bar"></div>
+                        <div class="voice-bar"></div>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="relative">
+                        <textarea id="codeInput"
+                            placeholder="Ask about any programming concept, share your code for review, or request help with debugging..."
+                            class="w-full bg-gray-800 bg-opacity-50 border border-gray-600 rounded-xl p-4 pr-16 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 resize-none code-font"
+                            rows="4"></textarea>
+                        <div class="absolute bottom-4 right-4 flex items-center gap-2">
+                            <div class="text-xs text-gray-500">
+                                <span id="charCount">0</span>/5000
+                            </div>
+                            <button id="sendButton" onclick="sendMessage()"
+                                class="interactive-button bg-gradient-to-r from-blue-500 to-purple-500 p-3 rounded-lg hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <button onclick="insertQuickQuestion('Explain closures in JavaScript')"
+                            class="px-4 py-2 bg-blue-600 bg-opacity-50 rounded-full text-sm hover:bg-opacity-75 transition-all">
+                            JavaScript Closures
+                        </button>
+                        <button onclick="insertQuickQuestion('Show me Python list comprehensions')"
+                            class="px-4 py-2 bg-green-600 bg-opacity-50 rounded-full text-sm hover:bg-opacity-75 transition-all">
+                            Python Lists
+                        </button>
+                        <button onclick="insertQuickQuestion('Binary search algorithm')"
+                            class="px-4 py-2 bg-purple-600 bg-opacity-50 rounded-full text-sm hover:bg-opacity-75 transition-all">
+                            Algorithms
+                        </button>
+                        <button onclick="insertQuickQuestion('React hooks explained')"
+                            class="px-4 py-2 bg-cyan-600 bg-opacity-50 rounded-full text-sm hover:bg-opacity-75 transition-all">
+                            React Hooks
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sidebar Panels -->
+                <div class="space-y-6">
+                    <!-- Progress Chart -->
+                    <div class="glass-morphism rounded-2xl p-6 fade-in-up">
+                        <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                            <i class="fas fa-chart-pie text-green-400"></i>
+                            Learning Progress
+                        </h3>
+                        <div class="relative">
+                            <canvas id="progressChart" style="height: 200px;"></canvas>
+                        </div>
+                        <div class="mt-4 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">JavaScript</span>
+                                <span class="text-sm font-bold">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="bg-yellow-400 h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Achievements -->
+                    <div class="glass-morphism rounded-2xl p-6 fade-in-up">
+                        <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                            <i class="fas fa-medal text-yellow-400"></i>
+                            Recent Achievements
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="achievement-badge">
+                                <i class="fas fa-fire text-orange-400"></i>
+                                <span class="text-sm font-semibold">Coding Streak: 7 days</span>
+                            </div>
+                            <div class="achievement-badge">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <span class="text-sm font-semibold">JavaScript Master</span>
+                            </div>
+                            <div class="achievement-badge">
+                                <i class="fas fa-trophy text-purple-400"></i>
+                                <span class="text-sm font-semibold">Problem Solver</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="glass-morphism rounded-2xl p-6 fade-in-up">
+                        <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                            <i class="fas fa-bolt text-blue-400"></i>
+                            Today's Activity
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Questions Asked</span>
+                                <span class="text-lg font-bold text-blue-400">23</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Code Reviews</span>
+                                <span class="text-lg font-bold text-green-400">8</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Concepts Learned</span>
+                                <span class="text-lg font-bold text-purple-400">5</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Time Spent</span>
+                                <span class="text-lg font-bold text-orange-400">3.2h</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const GEMINI_API_KEY = "AIzaSyAlzOv8T5lIGKp1ObvREwjhp8eIrPwYzw4";
+        const MODEL_NAME = "gemini-1.5-flash";
+
+        const systemInstructionText = `You are an advanced AI Coding Instructor with deep expertise in multiple programming languages and software development concepts. You provide detailed, accurate, and educational responses to coding questions.
+
+Key characteristics:
+- Expert-level knowledge in JavaScript, Python, Java, C++, React, Node.js, and more
+- Explain concepts clearly with examples and best practices
+- Provide code snippets with proper formatting and comments
+- Offer optimization suggestions and alternative approaches
+- Help debug code and identify issues
+- Maintain a professional, encouraging teaching style
+- For non-coding questions, politely redirect to coding-related topics
+
+Always structure your responses with:
+1. Clear explanation of the concept
+2. Code examples when relevant
+3. Best practices and tips
+4. Common pitfalls to avoid
+5. Suggested next steps for learning`;
+
+        let chatHistory = [];
+        let isTyping = false;
+
+        // Initialize particles
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#667eea' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: '#667eea', opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 6, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
+                modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 }, remove: { particles_nb: 2 } }
+            },
+            retina_detect: true
+        });
+
+        // Initialize progress chart
+        const ctx = document.getElementById('progressChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['JavaScript', 'Python', 'Java', 'C++', 'React'],
+                datasets: [{
+                    data: [85, 70, 60, 45, 80],
+                    backgroundColor: [
+                        'rgba(255, 206, 84, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(153, 102, 255, 0.8)'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Character counter
+        document.getElementById('codeInput').addEventListener('input', function () {
+            const charCount = this.value.length;
+            document.getElementById('charCount').textContent = charCount;
+
+            if (charCount > 4000) {
+                document.getElementById('charCount').className = 'text-red-400';
+            } else if (charCount > 3000) {
+                document.getElementById('charCount').className = 'text-yellow-400';
+            } else {
+                document.getElementById('charCount').className = 'text-gray-500';
+            }
+        });
+
+        // Enter key handling
+        document.getElementById('codeInput').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Quick question insertion
+        function insertQuickQuestion(question) {
+            document.getElementById('codeInput').value = question;
+            document.getElementById('charCount').textContent = question.length;
+        }
+
+        // Send message function
+        async function sendMessage() {
+            const input = document.getElementById('codeInput');
+            const message = input.value.trim();
+
+            if (!message || isTyping) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+            document.getElementById('charCount').textContent = '0';
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            try {
+                const response = await getAIResponse(message);
+                hideTypingIndicator();
+                addMessage(response, 'ai');
+                updateProgress();
+            } catch (error) {
+                hideTypingIndicator();
+                addMessage('Sorry, I encountered an error. Please try again.', 'ai', true);
+                console.error('Error:', error);
+            }
+        }
+
+        // Add message to chat
+        function addMessage(message, sender, isError = false) {
+            const chatContainer = document.getElementById('chatContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${sender}-message`;
+
+            if (sender === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="flex items-start gap-3 justify-end">
+                        <div class="flex-1 text-right">
+                            <p class="font-semibold mb-2">You</p>
+                            <div class="code-font">${escapeHtml(message)}</div>
+                        </div>
+                        <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-user text-sm"></i>
+                        </div>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-robot text-sm"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-semibold mb-2 ${isError ? 'text-red-400' : ''}">
+                                CodeMentor AI ${isError ? '(Error)' : ''}
+                            </p>
+                            <div class="prose prose-invert max-w-none">
+                                ${formatMessage(message)}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Format AI message
+        function formatMessage(message) {
+            // Convert markdown-style code blocks to HTML
+            message = message.replace(/```(\w+)?\n([\s\S]*?)```/g, '<div class="code-block"><pre class="code-font text-sm">$2</pre></div>');
+            message = message.replace(/`([^`]+)`/g, '<code class="bg-gray-700 px-2 py-1 rounded text-sm code-font">$1</code>');
+
+            // Convert line breaks to paragraphs
+            message = message.replace(/\n\n/g, '</p><p>');
+            message = message.replace(/\n/g, '<br>');
+
+            return `<p>${message}</p>`;
+        }
+
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Show typing indicator
+        function showTypingIndicator() {
+            isTyping = true;
+            const chatContainer = document.getElementById('chatContainer');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typingIndicator';
+            typingDiv.className = 'ai-thinking';
+            typingDiv.innerHTML = `
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-robot text-sm"></i>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span>AI is thinking</span>
+                        <div class="thinking-dots">
+                            <div class="thinking-dot"></div>
+                            <div class="thinking-dot"></div>
+                            <div class="thinking-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            chatContainer.appendChild(typingDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Hide typing indicator
+        function hideTypingIndicator() {
+            isTyping = false;
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        // Get AI response
+        async function getAIResponse(message) {
+            const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${GEMINI_API_KEY}`;
+
+            chatHistory.push({
+                role: "user",
+                parts: [{ text: message }]
+            });
+
+            const requestBody = {
+                contents: chatHistory,
+                systemInstruction: {
+                    parts: [{ text: systemInstructionText }]
+                },
+                generationConfig: {
+                    temperature: 0.7,
+                    maxOutputTokens: 2048,
+                }
+            };
+
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestBody),
+            });
+
+            if (!response.ok) {
+                throw new Error(`API Error: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+                const aiResponse = data.candidates[0].content.parts[0].text;
+                chatHistory.push({
+                    role: "model",
+                    parts: [{ text: aiResponse }]
+                });
+                return aiResponse;
+            }
+
+            throw new Error('No valid response from AI');
+        }
+
+        // Update progress
+        function updateProgress() {
+            const progressBar = document.getElementById('progressBar');
+            const currentWidth = parseInt(progressBar.style.width) || 0;
+            const newWidth = Math.min(currentWidth + 2, 100);
+            progressBar.style.width = `${newWidth}%`;
+
+            if (newWidth === 100) {
+                setTimeout(() => {
+                    progressBar.style.width = '0%';
+                }, 1000);
+            }
+        }
+
+        // Utility functions
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('minimized-sidebar');
+        }
+
+        function toggleTheme() {
+            // Theme toggle functionality
+            showNotification('Theme changed successfully!');
+        }
+
+        function clearChat() {
+            document.getElementById('chatContainer').innerHTML = '';
+            chatHistory = [];
+            showNotification('Chat cleared!');
+        }
+
+        function exportChat() {
+            // Export functionality
+            showNotification('Chat exported successfully!');
+        }
+
+        function toggleVoice() {
+            const voiceViz = document.getElementById('voiceVisualization');
+            voiceViz.classList.toggle('hidden');
+            showNotification(voiceViz.classList.contains('hidden') ? 'Voice mode disabled' : 'Voice mode enabled');
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <i class="fas fa-check-circle mr-2"></i>
+                ${message}
+            `;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Initialize typing effect for welcome message
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    element.classList.remove('typing-effect');
+                }
+            }
+            type();
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function () {
+            const welcomeElement = document.getElementById('welcomeMessage');
+            const welcomeText = welcomeElement.textContent;
+            typeWriter(welcomeElement, welcomeText, 30);
+
+            // Add initial progress
+            setTimeout(() => updateProgress(), 1000);
+        });
+    </script>
+</body>
+
+</html>

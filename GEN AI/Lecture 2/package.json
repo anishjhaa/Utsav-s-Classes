@@ -1,0 +1,16 @@
+{
+  "name": "genai",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Pure_LLM.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anish",
+  "type": "module",
+  "license": "ISC",
+  "dependencies": {
+    "@google/genai": "^1.6.0",
+    "readline-sync": "^1.4.10"
+  }
+}
